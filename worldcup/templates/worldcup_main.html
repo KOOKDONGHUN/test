@@ -1,0 +1,111 @@
+{% extends "base.html" %} {# base.html을 상속 받는다  #}
+
+{% block title %}home.html{% endblock title%} {# 일종의 오버라이딩 #}
+
+{% load staticfiles %}
+{% block extrastyle %}{% static "css/home.css" %}{% endblock extrastyle%}
+
+<!--실제 내용-->
+{% block content %}
+<div class="container">
+<style>
+
+img:hover {
+  animation: shake 0.5s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes shake {
+  0% { transform: translate(1px, 1px) rotate(0deg); }
+  10% { transform: translate(-1px, -2px) rotate(-1deg); }
+  20% { transform: translate(-3px, 0px) rotate(1deg); }
+  30% { transform: translate(3px, 2px) rotate(0deg); }
+  40% { transform: translate(1px, -1px) rotate(1deg); }
+  50% { transform: translate(-1px, 2px) rotate(-1deg); }
+  60% { transform: translate(-3px, 1px) rotate(0deg); }
+  70% { transform: translate(3px, 1px) rotate(-1deg); }
+  80% { transform: translate(-1px, -1px) rotate(1deg); }
+  90% { transform: translate(1px, 2px) rotate(0deg); }
+  100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
+
+
+.zoom:hover {
+  transform: scale(1.3); /* (130% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+}
+
+
+    .split {
+  height: 100%;
+  width: 50%;
+  position: fixed;
+  z-index: 1;
+  top: 1;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
+/* Control the left side */
+.left {
+  left: 0;
+  background-color: lightskyblue;
+}
+
+/* Control the right side */
+.right {
+  right: 0;
+  background-color: darkseagreen;
+}
+
+/* If you want the content centered horizontally and vertically */
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+/* Style the image inside the centered container, if needed */
+.centered img {
+  width: 150px;
+  border-radius: 50%;
+}
+</style>
+
+    <div>
+        {% if rcount == 2 %}
+            <h1>{{ title }} 이상형 월드컵 결승 </h1>
+        {% else %}
+            <h1>{{ title }} 이상형 월드컵 {{ rcount }}강 {{ st }}/{{ half }}</h1>
+        {% endif %}
+    </div>
+    <div class="split left">
+        <div class="centered">
+            <div class="zoom">
+                <div class="container">
+    <div style="float:left; width: 300px;">
+        <h2>{{ name1 }}</h2>
+        <a href="{% url "worldcup:leftimage" tablename name1 %}"><img style="width: 400px;height: 400px" src="{{ datas1 }}"/></a>
+</div>
+    </div>
+    </div>
+    </div>
+        </div>
+    <!--<div style="float:left">
+        <img style="width: 200px; height: auto" src="{% static 'img/VS.png' %}"/>
+    </div>-->
+    <div class="split right">
+        <div class="centered">
+            <div class="zoom">
+                <div class="container">
+    <div style="float:left;width: 300px;">
+        <h2>{{ name2 }}</h2>
+        <a href="{% url "worldcup:rightimage" tablename name2 %}"><img style="width: 400px;height: 400px" src="{{ datas2 }}"/></a>
+
+    </div>
+                </div>
+                </div>
+        </div>
+    </div>
+</div>
+{% endblock content%}

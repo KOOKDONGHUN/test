@@ -1,0 +1,14 @@
+{% extends "base.html" %} {# base.html을 상속 받는다  #}
+
+{% block title %}home.html{% endblock title%} {# 일종의 오버라이딩 #}
+
+{% load staticfiles %}
+{% block extrastyle %}{% static "css/home.css" %}{% endblock extrastyle%}
+
+<!--실제 내용-->
+{% block content %}
+<div id="content">
+    <a href="{% url 'worldcup:imageload' tablename %}">시작하기</a>
+
+</div>
+{% endblock content%}

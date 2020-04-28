@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}home.html{% endblock title%}
+
+{% load staticfiles %}
+{% block extrastyle %}{% static "css/home.css" %}{% endblock extrastyle%}
+
+
+<!--실제 내용-->
+
+{% block content %}
+<div id="container">
+    <h1>수고하셨습니다. {{ title }} 이상형 월드컵 우승은 {{ allname|first }} 입니다</h1>
+    <div>
+        <div style="float: left; height: 200px;">
+            {% for datas in alldata %}
+                <img src="{{ datas }} " style="width: 200px;height: 200px"/>
+                <br>
+            {% endfor %}
+        </div>
+        <div style="float: left; width:200px; height: 200px;">
+        {% for names in allname %}
+        <p style="height: 200px; horiz-align: center; padding: 0px; margin: 0px;" >{{ names }}</p>
+        {% endfor %}
+        </div>
+</div>
+    <a href="{% url 'worldcup:worldcupindex' tablename %}">다시하러가기</a>
+
+</div>
+{% endblock content%}
+

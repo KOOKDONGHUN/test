@@ -1,0 +1,23 @@
+{% extends "base.html" %} {# base.html을 상속 받는다  #}
+
+{% block title %}home.html{% endblock title%} {# 일종의 오버라이딩 #}
+
+
+<!--실제 내용-->
+{% block content %}
+
+<div class="container">
+    <h3>게시물 올리기</h3>
+
+        <form method="POST" >{% csrf_token %}{{ form.as_p }}
+            <button type="submit">게시글올리기</button>
+        </form>
+
+{#    <input type="text" placeholder="제목을 입력해주세요." ><br>#}
+{##}
+{#    <textarea placeholder="내용을 입력해주세요."></textarea><br>#}
+{##}
+{#    <button>게시</button>#}
+</div>
+
+{% endblock content%}

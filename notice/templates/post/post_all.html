@@ -1,0 +1,47 @@
+{% extends "base.html" %} {# home.html을 상속 받는다  #}
+
+{% block title %}Djang Bookmark List{% endblock title%} {# 일종의 오버라이딩 #}
+
+{% load staticfiles %}
+{% block extrastyle %}{% static "css/base.css" %}{% endblock extrastyle%}
+
+<!--실제 내용-->
+{% block content %}
+
+<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<div class="container">
+
+    <h1>공지사항</h1>
+    <hr>
+    <table class="table table-striped">
+        <tr><th>글번호</th><th>제목</th><th>작성날짜</th><th>내용</th></tr>
+    {% for post in posts %} <!-- view.py를 통해서 models.py를 html파일에서 사용 가능하도록함-->
+        <tr>
+            <td></td>
+            <td><h2><a href='{{ post.get_absolute_url }}'>{{ post.title }}</a></h2></td>
+            <td>{{ post.modify_date|date:"N d, Y" }}</td>
+            <td><p>{{ post.content }}</p></td>
+        </tr>
+    {% endfor %}
+
+    </table>
+
+    <br/>
+
+    <div>
+        <span>
+            {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}">PreviousPage</a>
+            {% endif %}
+
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">NextPage</a>
+            {% endif %}
+        </span>
+    </div>
+</div>
+
+{% endblock content %}

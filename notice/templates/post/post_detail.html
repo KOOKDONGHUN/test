@@ -1,0 +1,61 @@
+{% extends "home.html" %} {# home.html을 상속 받는다  #}
+
+{% block title %}Djang Bookmark List{% endblock title%} {# 일종의 오버라이딩 #}
+
+{% load staticfiles %}
+{% block extrastyle %}{% static "css/home.css" %}{% endblock extrastyle%}
+
+<!--실제 내용-->
+{% block content %}
+<style>
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 70%;
+  border: 1px solid black;
+}
+
+th, td {
+  text-align: left;
+  padding: 8px;
+    border:1px solid black;
+}
+
+tr:nth-child(even){background-color: white;
+border:1px solid black}
+
+</style>
+<div class="container">
+<div style="overflow-x:auto;">
+    <table>
+        <thead>
+            <td><h2>제목</h2></td>
+            <td><h2>{{ object.title }}</h2></td>
+        </thead>
+        <tr>
+            <td>게시날짜</td>
+            <td>
+                <p class="date">{{ object.modify_date|date:"j F Y" }}</p>
+            </td>
+        </tr>
+        <tr>
+            <td>내용</td>
+            <td>
+                {{ object.content|linebreaks }}
+            </td>
+        </tr>
+    </table>
+
+    <p class="other_posts">
+        {% if object.get_previous_by_modify_date %}
+        <a href="{{ object.get_previous_post.get_absolute_url }}" title="View previous post">&laquo;--[이전글]{{ object.get_previous_post }}</a>
+        {% endif %}
+
+        {% if object.get_next_by_modify_date %}
+        | <a href="{{ object.get_next_post.get_absolute_url }}" title="View next post">{{ object.get_next_post }}[다음글]--&raquo;</a>
+        {% endif %}
+    </p>
+</div>
+</div>
+
+{% endblock content %}
